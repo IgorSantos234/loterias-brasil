@@ -1,0 +1,25 @@
+name: Executar Robo de Loterias Daily
+
+on:
+  schedule:
+    # 23:30 UTC equivale a 20:30 no Horário de Brasília
+    - cron: '30 23 * * *'
+  workflow_dispatch: # Permite que você clique em um botão para testar quando quiser
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o codigo do repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar o Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Instalar a biblioteca requests
+        run: pip install requests
+
+      - name: Executar o script do robo
+        run: python loterias.py
